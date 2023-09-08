@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PortfolioComponent } from './component/portfolio/portfolio.component';
 import { EmptyLayoutComponent } from './component/empty-layout/empty-layout.component';
 import { ContactComponent } from './component/contact/contact.component';
+import { PortfolioPageComponent } from './component/portfolio-page/portfolio-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { ContactComponent } from './component/contact/contact.component';
     NavbarComponent,
     PortfolioComponent,
     EmptyLayoutComponent,
-    ContactComponent
+    ContactComponent,
+    PortfolioPageComponent
   ],
   imports: [
     BrowserModule,
