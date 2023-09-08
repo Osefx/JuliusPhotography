@@ -4,15 +4,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './component/user/user.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PortfolioComponent } from './component/portfolio/portfolio.component';
+import { EmptyLayoutComponent } from './component/empty-layout/empty-layout.component';
+import { ContactComponent } from './component/contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    NavbarComponent,
+    PortfolioComponent,
+    EmptyLayoutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

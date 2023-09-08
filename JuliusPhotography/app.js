@@ -1,11 +1,13 @@
 // app.js
 const con = require('./db.js');
+//const cors = require('cors');
 const { createUser, createUserTable } = require('./Models/user.js'); // Import the function
 const express = require('express');
 const userController = require('./Controller/userController');
 const app = express();
 
 app.use(express.json());
+//app.use(cors());
 
 app.post('/users', userController.createUser);
 
