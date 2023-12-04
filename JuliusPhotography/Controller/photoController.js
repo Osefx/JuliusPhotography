@@ -47,7 +47,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       return res.status(400).json({ message: 'No file uploaded' });
     }
   
-    const { originalname: name, size } = req.file;
+    const { filename: name, size } = req.file;
     const path = req.file.path; // get the path of the uploaded file
   
     const sql = `UPDATE photo SET name = ?, path = ?, size = ? WHERE id = ?`;
