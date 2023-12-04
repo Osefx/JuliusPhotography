@@ -12,4 +12,8 @@ export class UserService {
     return this.http.post('http://localhost:3000/users', user);
   }
 
+  loginUser(user: User) {
+    return this.http.post('http://localhost:3000/login', user);
+  }
+
 }

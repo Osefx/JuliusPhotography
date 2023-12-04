@@ -11,6 +11,7 @@ import { PortfolioComponent } from './component/portfolio/portfolio.component';
 import { EmptyLayoutComponent } from './component/empty-layout/empty-layout.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { PortfolioPageComponent } from './component/portfolio-page/portfolio-page.component';
+import { PhotoComponent } from './component/photo/photo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { PortfolioPageComponent } from './component/portfolio-page/portfolio-pag
     PortfolioComponent,
     EmptyLayoutComponent,
     ContactComponent,
-    PortfolioPageComponent
+    PortfolioPageComponent,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,

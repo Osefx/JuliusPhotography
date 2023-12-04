@@ -1,1 +1,18 @@
-<p>portfolio-page works!</p>
+<p>portfolio-page works!</p><div class="container">
+  <div class="container">
+    <h1 class="text-center my-4">Wedding Portfolio</h1>
+    <button class="btn btn-success mb-4" *ngIf="isLoggedIn" (click)="addPhoto()">Add Photo</button>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let photo of photos">
+        <div class="card mb-4">
+          <img [src]="photo.path" class="card-img-top" alt="Photo">
+          <div class="card-body">
+            <h5 class="card-title">{{ photo.name }}</h5>
+            <p class="card-text">{{ photo.size }} KB</p>
+            <button class="btn btn-primary" *ngIf="isLoggedIn" (click)="editPhoto(photo)">Edit</button>
+            <button class="btn btn-danger" *ngIf="isLoggedIn" (click)="deletePhoto(photo.id)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
