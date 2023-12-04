@@ -11,6 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/uploads', cors(), express.static('uploads'));
+
 // Use the messages controller for handling messages from the client
 app.use('/messages', messagesController);
 app.use('/photos', photoController);

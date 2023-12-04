@@ -16,16 +16,19 @@ export class PhotoService {
   }
 
   addPhoto(photo: Photo): Observable<Photo> {
+    console.log(this.photosUrl)
     return this.http.post<Photo>(this.photosUrl, photo);
   }
 
-  updatePhoto(id: number, photo: Photo): Observable<Photo> {
+  updatePhoto(id: number, photo: FormData): Observable<Photo> {
     const url = `${this.photosUrl}/${id}`;
     return this.http.put<Photo>(url, photo);
   }
 
   deletePhoto(id: number): Observable<Photo> {
+
     const url = `${this.photosUrl}/${id}`;
+    console.log(url)
     return this.http.delete<Photo>(url);
   }
 }

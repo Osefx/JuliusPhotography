@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Photo } from 'src/app/models/photo';
+import { AuthService } from 'src/app/service/auth.service';
 import { PhotoService } from 'src/app/service/photo.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-portfolio-page',
@@ -8,12 +10,16 @@ import { PhotoService } from 'src/app/service/photo.service';
   styleUrls: ['./portfolio-page.component.css']
 })
 export class PortfolioPageComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef;
   photos: Photo[] = [];
   isLoggedIn = false; // Set this to true when the user logs in and to false when the user logs out
+  selectedFile!: File;
+  photoToEdit!: Photo | null;
 
-  constructor(private photoService: PhotoService) { }
+  constructor(private photoService: PhotoService, private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.getPhotos();
   }
 
@@ -29,37 +35,45 @@ export class PortfolioPageComponent implements OnInit {
   }
 
   addPhoto() {
-    // Open a modal or another form where the admin can enter the properties of the new photo
-    // When the admin submits the form, call the addPhoto method in the PhotoService with the new photo
+    this.fileInput.nativeElement.click();
+  }
 
-    const newPhoto = { id: 0, name: 'New Name', path: 'New Path', size: 123 }; // Replace this with the actual new photo
+  onFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+      const formData = new FormData();
+      formData.append('image', file);
 
-    this.photoService.addPhoto(newPhoto).subscribe(
-      newPhoto => {
-        this.photos.push(newPhoto); // Add the new photo to the photos array
-      },
-      error => {
-        console.error(error);
+
+      if (this.photoToEdit) {
+        // If a photo is being edited, update the existing photo
+        this.photoService.updatePhoto(this.photoToEdit.id, formData).subscribe(
+          () => {
+            console.log('Update successful');
+            this.photoToEdit = null; // Reset photoToEdit
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      } else {
+        // If no photo is being edited, add a new photo
+        this.http.post('http://localhost:3000/photos/', formData).subscribe(
+          () => {
+            console.log('Upload successful');
+          },
+          error => {
+            console.error(error);
+          }
+        );
       }
-    );
+    }
   }
 
   editPhoto(photo: Photo) {
-    // Open a modal or another form where the admin can edit the photo's properties
-    // When the admin submits the form, call the updatePhoto method with the updated photo
-
-    const updatedPhoto = { ...photo, name: 'New Name', path: 'New Path', size: 123 }; // Replace this with the actual updated photo
-
-    this.photoService.updatePhoto(photo.id, updatedPhoto).subscribe(
-      updatedPhoto => {
-        // Replace the old photo with the updated photo in the photos array
-        const index = this.photos.findIndex(p => p.id === updatedPhoto.id);
-        this.photos[index] = updatedPhoto;
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.photoToEdit = photo; // Set photoToEdit to the photo that is being edited
+    this.fileInput.nativeElement.click(); // Open the file dialog
   }
 
   deletePhoto(id: number) {

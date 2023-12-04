@@ -16,6 +16,17 @@ const createPhotoTable = () => {
     });
 };
 
+const getPhotoById = (id, callback) => {
+    const sql = `SELECT * FROM photo WHERE id = ?`;
+    con.query(sql, [id], (err, result) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, result[0]);
+      }
+    });
+  };
+
 const createPhoto = (photoData) => {
     const { name, path, size } = photoData;
     const sql = `INSERT INTO photo (name, path, size) VALUES ('${name}', '${path}', '${size}')`;
@@ -42,11 +53,23 @@ const updatePhoto = (id, photoData) => {
       console.log("Photo deleted successfully");
     });
   };
-
+  const getPhotos = (callback) => {
+    const sql = 'SELECT * FROM photo';
+  
+    con.query(sql, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    });
+  };
 
 module.exports = {
     createPhotoTable,
     createPhoto,
     updatePhoto,
-    deletePhoto
+    deletePhoto,
+    getPhotos,
+    getPhotoById
 };
