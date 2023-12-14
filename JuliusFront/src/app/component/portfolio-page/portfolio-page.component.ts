@@ -12,7 +12,9 @@ import { HttpClient } from '@angular/common/http';
 export class PortfolioPageComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   photos: Photo[] = [];
-  isLoggedIn = false; // Set this to true when the user logs in and to false when the user logs out
+  isLoggedIn = false;
+  isAdmin = false;
+  isClient = false;
   selectedFile!: File;
   photoToEdit!: Photo | null;
 
@@ -20,6 +22,8 @@ export class PortfolioPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.isAdmin = this.authService.isAdmin();
+    this.isClient = this.authService.isClient();
     this.getPhotos();
   }
 

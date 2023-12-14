@@ -27,11 +27,3 @@ app.listen(3000, () => {
 createUserTable();
 createPhotoTable();
 
-// Define some user data
-// const userData = {
-//   username: 'julius',
-//   email: 'julius@htoamil.fr',
-//   password: 'vebeyu55',
-// };
-
-// createUser(userData); // Call the function with the user data
